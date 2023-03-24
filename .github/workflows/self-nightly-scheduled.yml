@@ -14,6 +14,7 @@ on:
   push:
     branches:
       - run_nightly_ci*
+      - enable_backward_forward_ci
 
 env:
   HF_HOME: /mnt/cache
