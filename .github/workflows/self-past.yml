@@ -269,7 +269,7 @@ jobs:
       - name: Environment
         working-directory: /transformers
         run: |
-          python utils/print_env.py
+          python3 utils/print_env.py
 
       - name: Show installed libraries and their versions
         working-directory: /transformers
