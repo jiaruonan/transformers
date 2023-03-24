@@ -3,7 +3,7 @@ name: Self-hosted runner (past-ci-caller)
 on:
   push:
     branches:
-      - run-past-ci*
+      - run_past_ci*
 
 jobs:
   run_past_ci_pytorch_1-11:
