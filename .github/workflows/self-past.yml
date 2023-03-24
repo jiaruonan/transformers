@@ -240,7 +240,7 @@ jobs:
       options: --gpus all --shm-size "16gb" --ipc host -v /mnt/cache/.cache/huggingface:/mnt/cache/
     steps:
       - name: Update clone
-        working-directory: /workspace/transformers
+        working-directory: /transformers
         run: git fetch && git checkout ${{ github.sha }}
 
       - name: Remove cached torch extensions
@@ -254,7 +254,7 @@ jobs:
 
       # To avoid unknown test failures
       - name: Pre build DeepSpeed *again*
-        working-directory: /workspace
+        working-directory: /
         run: |
           python3 -m pip uninstall -y deepspeed
           rm -rf DeepSpeed
@@ -266,30 +266,30 @@ jobs:
           nvidia-smi
 
       - name: Environment
-        working-directory: /workspace/transformers
+        working-directory: /transformers
         run: |
           python utils/print_env.py
 
       - name: Show installed libraries and their versions
-        working-directory: /workspace/transformers
+        working-directory: /transformers
         run: pip freeze
 
       - name: Run all tests on GPU
-        working-directory: /workspace/transformers
+        working-directory: /transformers
         run: |
           python -m pytest -v --make-reports=${{ matrix.machine_type }}_tests_torch_cuda_extensions_gpu tests/deepspeed tests/extended
 
       - name: Failure short reports
         if: ${{ failure() }}
         continue-on-error: true
-        run: cat /workspace/transformers/reports/${{ matrix.machine_type }}_tests_torch_cuda_extensions_gpu/failures_short.txt
+        run: cat /transformers/reports/${{ matrix.machine_type }}_tests_torch_cuda_extensions_gpu/failures_short.txt
 
       - name: Test suite reports artifacts
         if: ${{ always() }}
         uses: actions/upload-artifact@v3
         with:
           name: ${{ matrix.machine_type }}_run_tests_torch_cuda_extensions_gpu_test_reports
-          path: /workspace/transformers/reports/${{ matrix.machine_type }}_tests_torch_cuda_extensions_gpu
+          path: /transformers/reports/${{ matrix.machine_type }}_tests_torch_cuda_extensions_gpu
 
   send_results:
     name: Send results to webhook
