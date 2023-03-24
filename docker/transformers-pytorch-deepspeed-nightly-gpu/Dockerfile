@@ -24,6 +24,9 @@ RUN python3 -m pip install --no-cache-dir ./transformers[deepspeed-testing]
 # Uninstall `torch-tensorrt` shipped with the base image
 RUN python3 -m pip uninstall -y torch-tensorrt
 
+# Uninstall `apex` shipped with the base image
+RUN python3 -m pip uninstall -y apex
+
 # Pre-build **nightly** release of DeepSpeed, so it would be ready for testing (otherwise, the 1st deepspeed test will timeout)
 RUN python3 -m pip uninstall -y deepspeed
 # This has to be run inside the GPU VMs running the tests. (So far, it fails here due to GPU checks during compilation.)
