@@ -4,11 +4,32 @@ on:
   push:
     branches:
       - run_past_ci*
+      - enable_backward_forward_ci
 
 jobs:
+  run_past_ci_pytorch_1-13:
+    name: PyTorch 1.13
+    if: always()
+    uses: ./.github/workflows/self-past.yml
+    with:
+      framework: pytorch
+      version: "1.13"
+    secrets: inherit
+
+  run_past_ci_pytorch_1-12:
+    name: PyTorch 1.12
+    if: always()
+    needs: [run_past_ci_pytorch_1-13]
+    uses: ./.github/workflows/self-past.yml
+    with:
+      framework: pytorch
+      version: "1.12"
+    secrets: inherit
+
   run_past_ci_pytorch_1-11:
     name: PyTorch 1.11
     if: always()
+    needs: [run_past_ci_pytorch_1-12]
     uses: ./.github/workflows/self-past.yml
     with:
       framework: pytorch
@@ -35,10 +56,40 @@ jobs:
       version: "1.9"
     secrets: inherit
 
+  run_past_ci_tensorflow_2-11:
+    name: TensorFlow 2.11
+    if: always()
+    needs: [run_past_ci_pytorch_1-9]
+    uses: ./.github/workflows/self-past.yml
+    with:
+      framework: tensorflow
+      version: "2.11"
+    secrets: inherit
+
+  run_past_ci_tensorflow_2-10:
+    name: TensorFlow 2.10
+    if: always()
+    needs: [run_past_ci_tensorflow_2-11]
+    uses: ./.github/workflows/self-past.yml
+    with:
+      framework: tensorflow
+      version: "2.10"
+    secrets: inherit
+
+  run_past_ci_tensorflow_2-9:
+    name: TensorFlow 2.9
+    if: always()
+    needs: [run_past_ci_tensorflow_2-10]
+    uses: ./.github/workflows/self-past.yml
+    with:
+      framework: tensorflow
+      version: "2.9"
+    secrets: inherit
+
   run_past_ci_tensorflow_2-8:
     name: TensorFlow 2.8
     if: always()
-    needs: [run_past_ci_pytorch_1-4]
+    needs: [run_past_ci_tensorflow_2-9]
     uses: ./.github/workflows/self-past.yml
     with:
       framework: tensorflow
