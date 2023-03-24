@@ -246,6 +246,12 @@ jobs:
       - name: Remove cached torch extensions
         run: rm -rf /github/home/.cache/torch_extensions/
 
+      # Uninstall `torch-tensorrt` and `apex` shipped with the base image
+      - name: Remove unwanted libraries
+        run: |
+          python3 -m pip uninstall -y torch-tensorrt
+          python3 -m pip uninstall -y apex
+
       # To avoid unknown test failures
       - name: Pre build DeepSpeed *again*
         working-directory: /workspace
