@@ -228,6 +228,7 @@ jobs:
 
   run_all_tests_torch_cuda_extensions_gpu:
     name: Torch CUDA extension tests
+    if: inputs.framework == 'pytorch'
     strategy:
       fail-fast: false
       matrix:
