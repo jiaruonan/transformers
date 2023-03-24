@@ -3,7 +3,7 @@ name: Build docker images (scheduled)
 on:
   push:
     branches:
-      - docker-image*
+      - enable_backward_forward_ci
   repository_dispatch:
   workflow_call:
     inputs:
