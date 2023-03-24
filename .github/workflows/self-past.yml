@@ -26,7 +26,7 @@ env:
   TRANSFORMERS_IS_CI: yes
   OMP_NUM_THREADS: 8
   MKL_NUM_THREADS: 8
-  RUN_SLOW: yes
+  RUN_SLOW: false
   SIGOPT_API_TOKEN: ${{ secrets.SIGOPT_API_TOKEN }}
   TF_FORCE_GPU_ALLOW_GROWTH: true
   RUN_PT_TF_CROSS_TESTS: 1
@@ -256,7 +256,7 @@ jobs:
       - name: Pre build DeepSpeed *again*
         working-directory: /
         run: |
-          apt-get install libaio-dev
+          apt-get install -y libaio-dev
           python3 -m pip uninstall -y deepspeed
           rm -rf DeepSpeed
           git clone https://github.com/microsoft/DeepSpeed && cd DeepSpeed && rm -rf build
