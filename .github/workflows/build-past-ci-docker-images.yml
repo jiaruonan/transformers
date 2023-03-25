@@ -3,7 +3,7 @@ name: Build docker images (Past CI)
 on:
   push:
     branches:
-      - enable_backward_forward_ci_xxx
+      - enable_backward_forward_ci
 
 concurrency:
   group: docker-images-builds
@@ -59,7 +59,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        version: ["2.11", "2.10", "2.9", "2.8", "2.7", "2.6", "2.5", "2.4"]
+        version: ["2.11", "2.10", "2.9", "2.8", "2.7", "2.6", "2.5"]
     runs-on: ubuntu-latest
     steps:
       -
