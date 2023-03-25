@@ -26,20 +26,20 @@ jobs:
 #      version: "1.12"
 #    secrets: inherit
 #
-#  run_past_ci_pytorch_1-11:
-#    name: PyTorch 1.11
-#    if: always()
-#    needs: [run_past_ci_pytorch_1-12]
-#    uses: ./.github/workflows/self-past.yml
-#    with:
-#      framework: pytorch
-#      version: "1.11"
-#    secrets: inherit
+  run_past_ci_pytorch_1-11:
+    name: PyTorch 1.11
+    if: always()
+    # needs: [run_past_ci_pytorch_1-12]
+    uses: ./.github/workflows/self-past.yml
+    with:
+      framework: pytorch
+      version: "1.11"
+    secrets: inherit
 
   run_past_ci_pytorch_1-10:
     name: PyTorch 1.10
     if: always()
-    # needs: [run_past_ci_pytorch_1-11]
+    needs: [run_past_ci_pytorch_1-11]
     uses: ./.github/workflows/self-past.yml
     with:
       framework: pytorch
@@ -56,15 +56,15 @@ jobs:
       version: "1.9"
     secrets: inherit
 
-#  run_past_ci_tensorflow_2-11:
-#    name: TensorFlow 2.11
-#    if: always()
-#    needs: [run_past_ci_pytorch_1-12]
-#    uses: ./.github/workflows/self-past.yml
-#    with:
-#      framework: tensorflow
-#      version: "2.11"
-#    secrets: inherit
+  run_past_ci_tensorflow_2-11:
+    name: TensorFlow 2.11
+    if: always()
+    needs: [run_past_ci_pytorch_1-9]
+    uses: ./.github/workflows/self-past.yml
+    with:
+      framework: tensorflow
+      version: "2.11"
+    secrets: inherit
 #
 #  run_past_ci_tensorflow_2-10:
 #    name: TensorFlow 2.10
