@@ -257,6 +257,7 @@ jobs:
         working-directory: /
         run: |
           apt-get install -y libaio-dev
+          python3 -m pip install -U setuptools
           python3 -m pip uninstall -y deepspeed
           rm -rf DeepSpeed
           git clone https://github.com/microsoft/DeepSpeed && cd DeepSpeed && rm -rf build
