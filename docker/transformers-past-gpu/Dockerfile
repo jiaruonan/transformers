@@ -23,6 +23,8 @@ RUN cd transformers && python3 setup.py develop
 ARG FRAMEWORK
 ARG VERSION
 
+RUN [ "$VERSION" != "1.9" -a "$VERSION" != "1.10" ] && python3 -m pip install -U setuptools || python3 -m pip install -U "setuptools<=59.5"
+
 # Remove all frameworks
 # (`accelerate` requires `torch`, and this causes import issues for TF-only testing)
 RUN python3 -m pip uninstall -y torch torchvision torchaudio accelerate tensorflow jax flax
